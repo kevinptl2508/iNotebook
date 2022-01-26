@@ -25,25 +25,77 @@ router.post('/createuser', [
             if (user) {
                 return res.status(400).json({ Error: "Email already exists!" });
             }
-            // Create a new User
+
+            // Hashing Password
             let salt = await bcrypt.genSalt(10);
             let secPass = await bcrypt.hash(req.body.password, salt);
+
+            // Create a new User
             user = await User.create({
                 name: req.body.name,
                 email: req.body.email,
                 password: secPass
             });
+
+            // Sending Auth token
             const data = {
-                user : {
-                    id : user.id
+                user: {
+                    id: user.id
                 }
             }
-            const authToken = jwt.sign(data,JWT_SECRET);
-            res.json({authToken});
+            const authToken = jwt.sign(data, JWT_SECRET);
+            res.json({ authToken });
+
+            // End Try block
         } catch (error) {
             console.log(error.message);
-            res.status(500).send("Some error occured.");
+            res.status(500).send("Internal server error.");
         }
-    })
+    });
+
+
+
+
+// Authenticate a user using : POST "/api/auth/login" (No Login required)
+router.post('/login', [
+    body('email', 'Enter a valid email.').isEmail(),
+    body('password', 'Password cannot be empty.').exists()
+],
+    async (req, res) => {
+        // If there are errors, return bad request & errors!
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        try {
+            // array Destructuring 
+            const {email, password} = req.body;
+
+            // Check if user credentials match or not 
+            let user = await User.findOne({ email });
+            if (!user) {
+                return res.status(400).json({ Error: "Credentials does not match!" });
+            }
+            const comparePassword = await bcrypt.compare(password, user.password);
+            if (!comparePassword) {
+                return res.status(400).json({ Error: "Credentials does not match!" });
+            }
+
+            // Sending Auth Token 
+            const data = {
+                user: {
+                    id: user.id
+                }
+            }
+            const authToken = jwt.sign(data, JWT_SECRET);
+            res.json({ authToken });
+
+            // End Try Block 
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).send("Internal error occured");
+        }
+    });
 
 module.exports = router;
