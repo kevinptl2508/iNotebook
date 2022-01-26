@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const fetchUser = require('../middleware/fetchUser');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'Kevinisagoodboy';
 
-// Create a user using : POST "/api/auth/createuser" (No Login required)
+// ROUTE 1 : Create a user using : POST "/api/auth/createuser" (No Login required)
 router.post('/createuser', [
     body('email', 'Enter a valid email.').isEmail(),
     body('password', 'Password must be atleast 5 characters.').isLength({ min: 5 })],
@@ -56,7 +57,7 @@ router.post('/createuser', [
 
 
 
-// Authenticate a user using : POST "/api/auth/login" (No Login required)
+// ROUTE 2 : Authenticate a user using : POST "/api/auth/login" (No Login required)
 router.post('/login', [
     body('email', 'Enter a valid email.').isEmail(),
     body('password', 'Password cannot be empty.').exists()
@@ -70,7 +71,7 @@ router.post('/login', [
 
         try {
             // array Destructuring 
-            const {email, password} = req.body;
+            const { email, password } = req.body;
 
             // Check if user credentials match or not 
             let user = await User.findOne({ email });
@@ -94,8 +95,21 @@ router.post('/login', [
             // End Try Block 
         } catch (error) {
             console.log(error.message);
-            res.status(500).send("Internal error occured");
+            res.status(500).send("Internal server error.");
         }
     });
+
+
+// ROUTE 3 : Get logedIn user details using : POST "/api/auth/getuser" (Login required)
+router.post('/getuser', fetchUser , async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).select("-password");
+        res.send(user);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal server error.");
+    }
+});
 
 module.exports = router;
