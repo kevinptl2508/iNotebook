@@ -8,7 +8,7 @@ const { body, validationResult } = require('express-validator');
 router.get('/fetchallnotes', fetchUser, async (req, res) => {
     try {
         // find notes of user & send it via response
-        const notes = await Notes.find({ use: req.user.id });
+        const notes = await Notes.find({ user: req.user.id });
         res.json(notes);
         // end try block
     } catch (error) {
@@ -52,6 +52,7 @@ router.post('/addnote', fetchUser, [
 // ROUTE 3 : Update an existing note using : Put "/api/notes/updatenote" (Login required)
 router.put('/updatenote/:id', fetchUser, async (req, res) => {
     try {
+        // Array destructuring 
         const { title, description, tag } = req.body;
         // Create newNote object
         const newNote = {};
