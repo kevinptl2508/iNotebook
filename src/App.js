@@ -1,10 +1,24 @@
 import './App.css';
+import Navbar from './components/Navbar';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
+import About from './components/About';
+import Home from './components/Home';
 
 function App() {
   return (
-    <div className="App">
-      <h1>This is iNotebook frontend.</h1>
-    </div>
+    <>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route exact path="/" element={<Home />}></Route>
+          <Route exact path="/about" element={<About />}></Route>
+        </Routes>
+      </Router>
+    </>
   );
 }
 
