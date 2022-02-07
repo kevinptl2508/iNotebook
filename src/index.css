@@ -1,0 +1,12 @@
+body{
+    background: url('../bg.jpg') no-repeat center;
+    color: white;
+}
+.card{
+    background-color: rgba(255, 255, 255, 0.7);
+    color: black;
+}
+i{
+    color: black;
+    cursor: pointer;
+}
