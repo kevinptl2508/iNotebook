@@ -27,7 +27,7 @@ const NoteState = (props) => {
     // ADD A NOTE
     const addNote = (title, description, tag) => {
         console.log("Adding a new note");
-        const note={
+        const note = {
             "_id": "61ff5d76899b1be3d4d",
             "user": "61f1131b3175cc8706a400f9",
             "title": title,
@@ -39,15 +39,17 @@ const NoteState = (props) => {
         setNotes(Notes.concat(note));
     }
     // DELETE A NOTE
-    const deleteNote = () => {
-
+    const deleteNote = (id) => {
+        console.log("Deleting a note");
+        // MOST USED SYNTAX TO DELETE AN ITEM IN REACT
+        const newNotes = Notes.filter((note) => { return note._id !== id });
+        setNotes(newNotes);
     }
     // EDIT A NOTE
-    const editNote = () => {
-
+    const editNote = (id, title, description, tag) => {
     }
     return (
-        <NoteContext.Provider value={{ Notes, addNote , deleteNote, editNote }}>
+        <NoteContext.Provider value={{ Notes, addNote, deleteNote, editNote }}>
             {props.children}
         </NoteContext.Provider>
     )

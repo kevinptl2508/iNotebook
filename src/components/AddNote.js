@@ -4,13 +4,15 @@ import NoteContext from '../context/notes/NoteContext';
 function AddNote() {
     const { addNote } = useContext(NoteContext);
 
-    const [note, setNote] = useState({ title: "", description: "", tag: "" });
+    // CREATING THIS STATE ONLY FOR ONCHANGE FUNCTION
+    const [note, setNote] = useState({ title: "", description: "", tag: "Default" });
 
     const addNoteFunc = (e) => {
         e.preventDefault();
-        addNote(note.title,note.description,note.tag="Default");
+        addNote(note.title,note.description,note.tag);
     }
 
+    // SMART WAY TO DO THIS FOR OBJECT!
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
     }
@@ -27,7 +29,7 @@ function AddNote() {
                     <label htmlFor="description" className="form-label">Description</label>
                     <input type="text" className="form-control" id="description" name="description" onChange={onChange} />
                 </div>
-                <button type="submit" className="btn btn-outline-primary" onClick={addNoteFunc}>Submit</button>
+                <button type="submit" className="btn btn-outline-primary mt-3" onClick={addNoteFunc}>Add Note</button>
             </form>
         </div>
     </div>;
