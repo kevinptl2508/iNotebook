@@ -6,7 +6,7 @@ const NoteState = (props) => {
     const NotesInitial = [];
     const [Notes, setNotes] = useState(NotesInitial);
 
-    // GET ALL NOTES FROM DATABASE
+    // GET ALL NOTES FROM DATABASE USING API CALL
     const getNotes = async () => {
         const response = await fetch(`${host}/api/notes/fetchallnotes`, {
             method: 'GET',
@@ -16,12 +16,23 @@ const NoteState = (props) => {
             }
         });
         const res = await response.json();
-        console.log(res);
         setNotes(res);
     }
 
     // ADD A NOTE
-    const addNote = (title, description, tag) => {
+    const addNote = async (title, description, tag) => {
+        // API CALL
+        const response = await fetch(`${host}/api/notes/addnote`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmMTEzMWIzMTc1Y2M4NzA2YTQwMGY5In0sImlhdCI6MTY0MzE5NTMxNn0.zC3_X8GtyL4qdJOzXEqwYki1a4xVjk6EzevC0IkVggg'
+            },
+            body: JSON.stringify({title,description,tag})
+        });
+        const res = await response.json();
+        console.log(res);
+
         console.log("Adding a new note");
         const note = {
             "_id": "61ff5d76899b1be3d4d",
@@ -34,15 +45,28 @@ const NoteState = (props) => {
         };
         setNotes(Notes.concat(note));
     }
+
     // DELETE A NOTE
-    const deleteNote = (id) => {
-        console.log("Deleting a note");
+    const deleteNote = async (id) => {
+        // API CALL
+        const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmMTEzMWIzMTc1Y2M4NzA2YTQwMGY5In0sImlhdCI6MTY0MzE5NTMxNn0.zC3_X8GtyL4qdJOzXEqwYki1a4xVjk6EzevC0IkVggg'
+            }
+        });
+        const res = await response.json();
+        console.log(res);
+
+        console.log("Deleting a note with id=" + id);
         // MOST USED SYNTAX TO DELETE AN ITEM IN REACT
         const newNotes = Notes.filter((note) => { return note._id !== id });
         setNotes(newNotes);
     }
     // EDIT A NOTE
     const editNote = (id, title, description, tag) => {
+        
     }
     return (
         <NoteContext.Provider value={{ Notes, addNote, deleteNote, editNote, getNotes }}>
