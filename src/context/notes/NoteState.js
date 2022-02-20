@@ -64,10 +64,25 @@ const NoteState = (props) => {
         const newNotes = Notes.filter((note) => { return note._id !== id });
         setNotes(newNotes);
     }
+
     // EDIT A NOTE
+    // MOST USED SYNTAX TO DUPLICATE AN EXISTING JSON OBJECT(Because we can't update state in react directly)
+    let newNotes = JSON.parse(JSON.stringify(Notes));
+
     const editNote = (id, title, description, tag) => {
-        
+        console.log("Editing Note id " + id);
+        for (let index = 0; index < newNotes.length; index++) {
+            const element = newNotes[index];
+            if(element._id === id){
+                element.title = title;
+                element.description = description;
+                element.tag = tag;
+                break;
+            }
+        }
+        setNotes(newNotes);
     }
+
     return (
         <NoteContext.Provider value={{ Notes, addNote, deleteNote, editNote, getNotes }}>
             {props.children}
