@@ -63,6 +63,7 @@ router.post('/login', [
     body('password', 'Password cannot be empty.').exists()
 ],
     async (req, res) => {
+        let success = false;
         // If there are errors, return bad request & errors!
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -76,11 +77,11 @@ router.post('/login', [
             // Check if user credentials match or not 
             let user = await User.findOne({ email });
             if (!user) {
-                return res.status(400).json({ Error: "Credentials does not match!" });
+                return res.status(400).json({ success, Error: "Credentials does not match!" });
             }
             const comparePassword = await bcrypt.compare(password, user.password);
             if (!comparePassword) {
-                return res.status(400).json({ Error: "Credentials does not match!" });
+                return res.status(400).json({ success, Error: "Credentials does not match!" });
             }
 
             // Sending Auth Token 
@@ -89,8 +90,9 @@ router.post('/login', [
                     id: user.id
                 }
             }
+            success = true;
             const authToken = jwt.sign(data, JWT_SECRET);
-            res.json({ authToken });
+            res.json({ success, authToken });
 
             // End Try Block 
         } catch (error) {
@@ -101,7 +103,7 @@ router.post('/login', [
 
 
 // ROUTE 3 : Get logedIn user details using : POST "/api/auth/getuser" (Login required)
-router.post('/getuser', fetchUser , async (req, res) => {
+router.post('/getuser', fetchUser, async (req, res) => {
     try {
         const userId = req.user.id;
         const user = await User.findById(userId).select("-password");
