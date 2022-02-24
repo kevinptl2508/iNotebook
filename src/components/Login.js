@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -41,7 +41,7 @@ function Login() {
                     <label htmlFor="password" className="form-label">Password</label>
                     <input type="current-password" className="form-control" name="password" id="password" onChange={onChange} value={Credentials.password} />
                 </div>
-                <button type="submit" className="btn btn-outline-primary">Submit</button>
+                <button type="submit" className="btn btn-outline-primary mt-3">Submit</button>
             </form>
         </div>
     )

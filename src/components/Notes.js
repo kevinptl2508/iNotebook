@@ -54,15 +54,15 @@ function Notes() {
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="title" className="form-label">Title</label>
-                                    <input type="text" className="form-control" id="edittitle" name="edittitle" value={note.edittitle} onChange={onChange} />
+                                    <input type="text" className="form-control" id="edittitle" name="edittitle" value={note.edittitle} onChange={onChange} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="description" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="editdescription" name="editdescription" value={note.editdescription} onChange={onChange} />
+                                    <input type="text" className="form-control" id="editdescription" name="editdescription" value={note.editdescription} onChange={onChange} required minLength={5}/>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="tag" className="form-label">Tag</label>
-                                    <input type="text" className="form-control" id="edittag" name="edittag" value={note.edittag} onChange={onChange} />
+                                    <input type="text" className="form-control" id="edittag" name="edittag" value={note.edittag} onChange={onChange} required />
                                 </div>
                             </form>
                         </div>
