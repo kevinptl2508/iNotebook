@@ -8,8 +8,8 @@ const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'Kevinisagoodboy';
 
-// ROUTE 1 : Create a user using : POST "/api/auth/createuser" (No Login required)
-router.post('/createuser', [
+// ROUTE 1 : Create a user using : POST "/api/auth/signup" (No Login required)
+router.post('/signup', [
     body('email', 'Enter a valid email.').isEmail(),
     body('password', 'Password must be atleast 5 characters.').isLength({ min: 5 })],
     async (req, res) => {
@@ -116,3 +116,6 @@ router.post('/getuser', fetchUser, async (req, res) => {
 });
 
 module.exports = router;
+
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIyMjBhMzJjNWZhYjhlNmFhMmY4ODNkIn0sImlhdCI6MTY0NjM5ODAwMn0.eFjf21DYXHQ6cjE6e5CVH_FjnWJIuyvhMoZHr72IGro
