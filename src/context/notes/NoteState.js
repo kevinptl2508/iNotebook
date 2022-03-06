@@ -12,7 +12,7 @@ const NoteState = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmMTEzMWIzMTc1Y2M4NzA2YTQwMGY5In0sImlhdCI6MTY0MzE5NTMxNn0.zC3_X8GtyL4qdJOzXEqwYki1a4xVjk6EzevC0IkVggg'
+                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIyMjBhMzJjNWZhYjhlNmFhMmY4ODNkIn0sImlhdCI6MTY0NjM5ODAwMn0.eFjf21DYXHQ6cjE6e5CVH_FjnWJIuyvhMoZHr72IGro'
             }
         });
         const res = await response.json();
@@ -26,7 +26,7 @@ const NoteState = (props) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmMTEzMWIzMTc1Y2M4NzA2YTQwMGY5In0sImlhdCI6MTY0MzE5NTMxNn0.zC3_X8GtyL4qdJOzXEqwYki1a4xVjk6EzevC0IkVggg'
+                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIyMjBhMzJjNWZhYjhlNmFhMmY4ODNkIn0sImlhdCI6MTY0NjM5ODAwMn0.eFjf21DYXHQ6cjE6e5CVH_FjnWJIuyvhMoZHr72IGro'
             },
             body: JSON.stringify({ title, description, tag })
         });
@@ -41,7 +41,7 @@ const NoteState = (props) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmMTEzMWIzMTc1Y2M4NzA2YTQwMGY5In0sImlhdCI6MTY0MzE5NTMxNn0.zC3_X8GtyL4qdJOzXEqwYki1a4xVjk6EzevC0IkVggg'
+                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIyMjBhMzJjNWZhYjhlNmFhMmY4ODNkIn0sImlhdCI6MTY0NjM5ODAwMn0.eFjf21DYXHQ6cjE6e5CVH_FjnWJIuyvhMoZHr72IGro'
             }
         });
         const res = await response.json();
@@ -63,7 +63,7 @@ const NoteState = (props) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmMTEzMWIzMTc1Y2M4NzA2YTQwMGY5In0sImlhdCI6MTY0MzE5NTMxNn0.zC3_X8GtyL4qdJOzXEqwYki1a4xVjk6EzevC0IkVggg'
+                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIyMjBhMzJjNWZhYjhlNmFhMmY4ODNkIn0sImlhdCI6MTY0NjM5ODAwMn0.eFjf21DYXHQ6cjE6e5CVH_FjnWJIuyvhMoZHr72IGro'
             },
             body: JSON.stringify({ title, description, tag })
         });
@@ -83,7 +83,7 @@ const NoteState = (props) => {
     }
 
     return (
-        <NoteContext.Provider value={{ Notes, addNote, deleteNote, editNote, getNotes }}>
+        <NoteContext.Provider value={{ Notes, addNote, deleteNote, editNote, getNotes}}>
             {props.children}
         </NoteContext.Provider>
     )

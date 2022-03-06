@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
     const [Credentials, setCredentials] = useState({ email: "", password: "" });
     let navigate = useNavigate();
 
@@ -19,10 +19,11 @@ function Login() {
         if (res.success) {
             // Save the authToken & Redirect to home page
             localStorage.setItem('token', res.authToken);
+            props.showAlert("Login successful","success");
             navigate("/");
         }
         else {
-            alert("Invalid Credentials.");
+            props.showAlert("Invalid details","danger");
         }
     }
 
@@ -39,7 +40,7 @@ function Login() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
-                    <input type="current-password" className="form-control" name="password" id="password" onChange={onChange} value={Credentials.password} />
+                    <input type="password" className="form-control" name="password" id="password" onChange={onChange} value={Credentials.password} />
                 </div>
                 <button type="submit" className="btn btn-outline-primary mt-3">Submit</button>
             </form>
