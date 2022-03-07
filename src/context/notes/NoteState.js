@@ -12,7 +12,7 @@ const NoteState = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIyMjBhMzJjNWZhYjhlNmFhMmY4ODNkIn0sImlhdCI6MTY0NjM5ODAwMn0.eFjf21DYXHQ6cjE6e5CVH_FjnWJIuyvhMoZHr72IGro'
+                'authToken': localStorage.getItem('token')
             }
         });
         const res = await response.json();
@@ -26,7 +26,7 @@ const NoteState = (props) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIyMjBhMzJjNWZhYjhlNmFhMmY4ODNkIn0sImlhdCI6MTY0NjM5ODAwMn0.eFjf21DYXHQ6cjE6e5CVH_FjnWJIuyvhMoZHr72IGro'
+                'authToken': localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag })
         });
@@ -41,13 +41,10 @@ const NoteState = (props) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIyMjBhMzJjNWZhYjhlNmFhMmY4ODNkIn0sImlhdCI6MTY0NjM5ODAwMn0.eFjf21DYXHQ6cjE6e5CVH_FjnWJIuyvhMoZHr72IGro'
+                'authToken': localStorage.getItem('token')
             }
         });
         const res = await response.json();
-        console.log(res);
-
-        console.log("Deleting a note with id=" + id);
         // MOST USED SYNTAX TO DELETE AN ITEM IN REACT
         const newNotes = Notes.filter((note) => { return note._id !== id });
         setNotes(newNotes);
@@ -63,13 +60,11 @@ const NoteState = (props) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIyMjBhMzJjNWZhYjhlNmFhMmY4ODNkIn0sImlhdCI6MTY0NjM5ODAwMn0.eFjf21DYXHQ6cjE6e5CVH_FjnWJIuyvhMoZHr72IGro'
+                'authToken': localStorage.getItem('token')
             },
             body: JSON.stringify({ title, description, tag })
         });
         const res = await response.json();
-        console.log(res);
-        console.log("Editing Note id " + id);
         for (let index = 0; index < newNotes.length; index++) {
             const element = newNotes[index];
             if (element._id === id) {

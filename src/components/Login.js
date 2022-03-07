@@ -15,7 +15,6 @@ function Login(props) {
             body: JSON.stringify({ email: Credentials.email, password: Credentials.password })
         });
         const res = await response.json();
-        console.log(res);
         if (res.success) {
             // Save the authToken & Redirect to home page
             localStorage.setItem('token', res.authToken);
@@ -33,6 +32,7 @@ function Login(props) {
 
     return (
         <div>
+            <h1 className='mb-3'>Login To Continue To iNotebook</h1>
             <form onSubmit={onSubmitFunc}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>

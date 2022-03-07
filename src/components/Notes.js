@@ -33,7 +33,6 @@ function Notes(props) {
     }
     
     const updateNote = (e) => {
-        console.log("Updating a note", note);
         editNote(note.id, note.edittitle, note.editdescription, note.edittag);
         ref.current.click();
         props.showAlert("Updated successfully","success");
