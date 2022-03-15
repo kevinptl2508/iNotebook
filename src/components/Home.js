@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom';
 const Home = (props) => {
   const { showAlert } = props;
   let navigate = useNavigate();
-  
+
   useEffect(() => {
     if (!localStorage.getItem('token')) {
       navigate("/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <div>
